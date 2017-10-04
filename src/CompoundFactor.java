@@ -78,8 +78,7 @@ public class CompoundFactor implements Factor{
     }
 
     /**
-     *
-     * @param args
+     * reads input disjunctive expression from user and output the conjunctive representation of it
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
