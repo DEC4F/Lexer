@@ -1,6 +1,3 @@
-import java.util.Optional;
-import java.util.Scanner;
-
 /**
  * Created by Stanley Tian on 9/23/2017.
  */
@@ -60,7 +57,7 @@ public class CompoundFactor implements Factor{
      */
     @Override
     public ConjunctiveRepresentation conjunctiveRepresentation() {
-        String str = "not ( " + leftExpression.negate().conjunctiveRepresentation() + "or "
+        String str = "( " + leftExpression.negate().conjunctiveRepresentation() + " or "
                          + rightExpression.negate().conjunctiveRepresentation() + ")";
         return new ConjunctiveRepresentation(str, true);
     }
@@ -75,21 +72,5 @@ public class CompoundFactor implements Factor{
                 "leftExpression=" + leftExpression.toString() +
                 ", rightExpression=" + rightExpression.toString() +
                 '}';
-    }
-
-    /**
-     * reads input disjunctive expression from user and output the conjunctive representation of it
-     */
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String boolExp = sc.nextLine();
-        DisjunctiveLexer lexer = new DisjunctiveLexer(boolExp);
-        CompoundFactor factor;
-        try {
-            factor = CompoundFactor.Builder.build(lexer.nextValid().get(), lexer);
-            System.out.println(factor.conjunctiveRepresentation().getRepresentation());
-        } catch (ParserException e1) {
-            System.out.println("Error: " + e1);
-        }
     }
 }
