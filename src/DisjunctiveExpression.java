@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Created by Stanley Tian on 9/24/2017.
  */
@@ -66,7 +68,7 @@ public final class DisjunctiveExpression {
     public final String conjunctiveRepresentation() {
         ConjunctiveRepresentation rep = factor.conjunctiveRepresentation();
         if (rep.isNegated() == positive)
-            return "not " + rep.getRepresentation() + " ";
+            return "not " + rep.getRepresentation();
         return rep.getRepresentation();
     }
 
@@ -81,4 +83,18 @@ public final class DisjunctiveExpression {
                 ", positive=" + positive +
                 '}';
     }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String boolExp = sc.nextLine();
+        DisjunctiveLexer lexer = new DisjunctiveLexer(boolExp);
+        DisjunctiveExpression factor;
+        try {
+            factor = DisjunctiveExpression.Builder.build(lexer.nextValid().get(), lexer);
+            System.out.println(factor.conjunctiveRepresentation());
+        } catch (ParserException e1) {
+            System.out.println("Error: " + e1);
+        }
+    }
+
 }
